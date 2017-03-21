@@ -1,17 +1,11 @@
 <html>
   <head>
   	<meta charset="utf-8">
-    <title><%= htmlWebpackPlugin.options.title %></title>
-    <script type="text/javascript">
-    	<%= compilation.assets[htmlWebpackPlugin.files.chunks.main.entry.substr(htmlWebpackPlugin.files.publicPath.length)].source() %>
-    </script>
+    <title>webpack demo</title>
+    <!-- <%= htmlWebpackPlugin.options.title %> -->
   </head>
   <body>
-  	<div class="container"></div>
-  	<% for(var k in htmlWebpackPlugin.files.chunks) { %>
-			<% if(k !== 'main') { %>
-				<script type="text/javascript" src="<%= htmlWebpackPlugin.files.chunks[k].entry %>"></script>
-			<% } %>
-  	<% } %>
+  	<img src="app/assets/logo.png" />
+  	<div class="container" id="app"></div>
   </body>
 </html>

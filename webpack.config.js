@@ -52,7 +52,24 @@ module.exports = {
       },
       {
         test: /\.(png|jpg|gif|svg)$/,
-        use: "url-loader?name=assets/[name]-[hash:5].[ext]&limit=20000"
+        use: [
+          "url-loader?name=assets/[name]-[hash:5].[ext]&limit=20000",
+          {
+            loader: 'image-webpack-loader',
+            query: {
+              mozjpeg: {
+                progressive: true,
+                interlaced: false,
+                quality: '65-90',
+              },
+              pngquant: {
+                quality: '65-90',
+                speed: 4,
+                optimizationLevel: 7,
+              }
+            }
+          }
+        ]
       }
   	]
   },

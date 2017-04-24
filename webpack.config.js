@@ -1,60 +1,18 @@
+// path 是nodejs API中的一个模块
+// NodeJS官网： http://nodejs.cn/doc/node/index.html
 const path = require('path');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const htmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
   entry: {
     main: './app/js/main.js',
-    bar1: './app/js/bar1.js',
-    bar2: './app/js/bar2.js',
-    bar3: './app/js/bar3.js'
+    bar1: './app/js/bar1.js'
   },
   output: {
+    // name, chunkhash等配置项在： https://webpack.js.org/configuration/  output->filename选项卡里面
+    // chunkhash:5   hash值取前5位
     filename: 'js/[name]-[chunkhash:5].js',
+
+    // resolve是path模块中的一个方法
     path: path.resolve(__dirname, 'dist'),
     publicPath: 'http://cdn.com/'
-  },
-  resolve: {
-  	modules: [
-	  	path.join(__dirname, 'app'),
-	  	"node_modules"
-	  ]
-  },
-  module: {
-  	rules: [
-  		{
-  			test: /\.scss$/,
-  			use: ExtractTextPlugin.extract({
-          use: ["css-loader","sass-loader"],
-          // use style-loader in development 
-          fallback: "style-loader"
-        }),
-  		}
-  	]
-  },
-  plugins: [
-    new ExtractTextPlugin({
-      filename: 'css/style.css'
-    }),
-    new htmlWebpackPlugin({
-      filename: 'bar1.html',
-      template: 'index.html',
-      inject: false,
-      title: 'webpack demo bar1',
-      excludeChunks: ['bar2', 'bar3']
-    }),
-    new htmlWebpackPlugin({
-      filename: 'bar2.html',
-      template: 'index.html',
-      inject: false,
-      title: 'webpack demo bar2',
-      excludeChunks: ['bar1', 'bar3']
-    }),
-    new htmlWebpackPlugin({
-      filename: 'bar3.html',
-      template: 'index.html',
-      inject: false,
-      title: 'webpack demo bar3',
-      excludeChunks: ['bar1', 'bar2']
-    }),
-  ]
+  }
 }
